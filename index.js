@@ -3,7 +3,9 @@ var glob = require('glob');
 
 var rxjsPath = path.dirname(require.resolve('rxjs'));
 
-var files = glob.sync(rxjsPath + '/**/*.js');
+var files = glob.sync(rxjsPath + '/**/*.js', {
+  ignore: rxjsPath + '/{add,bundles,src}/**/*.js'
+});
 
 var rootPatterns = [{
   prefix: 'operator/',
