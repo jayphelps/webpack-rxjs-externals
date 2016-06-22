@@ -8,19 +8,30 @@ var files = glob.sync(rxjsPath + '/**/*.js', {
 });
 
 var rootPatterns = [{
-  prefix: 'operator/',
+  // rxjs/operator/map
+  regex: /^operator\//,
   root: ['Rx', 'Observable', 'prototype']
 }, {
-  prefix: 'observable/',
+  // rxjs/observable/interval
+  regex: /^observable\/[a-z]/,
   root: ['Rx', 'Observable']
 }, {
-  prefix: 'scheduler/',
+  // rxjs/observable/MulticastObservable
+  regex: /^observable\/[A-Z]/,
+  root: 'Rx'
+}, {
+  // rxjs/scheduler/asap
+  regex: /^scheduler\/[a-z]/,
   root: ['Rx', 'Scheduler']
+}, {
+  // rxjs/scheduler/VirtualTimeScheduler
+  regex: /^scheduler\/[A-Z]/,
+  root: 'Rx'
 }];
 
 function rootForPath(path) {
   for (var i = 0, l = rootPatterns.length; i < l; i++) {
-    if (path.indexOf(rootPatterns[i].prefix) === 0) {
+    if (path.match(rootPatterns[i].regex)) {
       return rootPatterns[i].root;
     }
   }
