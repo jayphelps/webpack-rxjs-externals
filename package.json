@@ -1,0 +1,24 @@
+{
+  "name": "webpack-rxjs-externals",
+  "version": "0.0.1",
+  "description": "Generate webpack externals for RxJS v5",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay Phelps <hello@jayphelps.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayphelps/webpack-rxjs-externals.git"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "rxjs": "^5.0.0-beta.9"
+  },
+  "dependencies": {
+    "glob": "7.0.5"
+  },
+  "devDependencies": {
+    "rxjs": "^5.0.0-beta.9"
+  }
+}
