@@ -1,6 +1,6 @@
 {
   "name": "webpack-rxjs-externals",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Generate webpack externals for RxJS v5",
   "main": "index.js",
   "scripts": {
