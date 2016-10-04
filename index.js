@@ -42,8 +42,13 @@ function rootForPath(path) {
 function createExternals() {
   return files.reduce(function (externs, file) {
     var path = file.replace(rxjsPath, '').replace(/^\/(.*)\.[^.]+$/, '$1');
-    externs['rxjs/' + path] = {
-      root: rootForPath(path)
+    var fullPath = 'rxjs/' + path;
+
+    externs[fullPath] = {
+      root: rootForPath(path),
+      commonjs2: fullPath,
+      commonjs: fullPath,
+      amd: fullPath
     };
 
     return externs;
