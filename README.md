@@ -4,6 +4,8 @@ Utility to generate all the ["externals"](https://webpack.js.org/configuration/e
 
 Since RxJS is ever-changing, this removes the need to maintain a list, instead generating it on the fly.
 
+> **Requires webpack v2**
+
 #### webpack.config.js
 
 ```js
