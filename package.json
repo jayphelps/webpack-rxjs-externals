@@ -17,12 +17,6 @@
     "url": "git+https://github.com/jayphelps/webpack-rxjs-externals.git"
   },
   "license": "MIT",
-  "peerDependencies": {
-    "rxjs": "^5.0.0"
-  },
-  "dependencies": {
-    "glob": "7.0.5"
-  },
   "devDependencies": {
     "chai": "^3.5.0",
     "memory-fs": "^0.4.1",

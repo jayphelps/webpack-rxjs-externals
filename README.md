@@ -7,12 +7,12 @@ Since RxJS is ever-changing, this removes the need to maintain a list, instead g
 #### webpack.config.js
 
 ```js
-import createRxJSExternals from 'webpack-rxjs-externals';
+import webpackRxjsExternals from 'webpack-rxjs-externals';
 
 export default {
-  externals: {
-    ...createRxJSExternals(),
+  externals: [
+    webpackRxjsExternals(),
     // other externals here
-  }
+  ]
 };
 ```
