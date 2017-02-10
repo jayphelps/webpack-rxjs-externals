@@ -1,58 +1,52 @@
-var path = require('path');
-var glob = require('glob');
-
-var rxjsPath = path.dirname(require.resolve('rxjs'));
-
-var files = glob.sync(rxjsPath + '/**/*.js', {
-  ignore: rxjsPath + '/{add,bundles,src}/**/*.js'
-});
-
-var rootPatterns = [{
+const rootPatterns = [{
   // rxjs/operator/map
-  regex: /^operator\//,
+  regex: /^rxjs\/operator\//,
   root: ['Rx', 'Observable', 'prototype']
 }, {
   // rxjs/observable/interval
-  regex: /^observable\/[a-z]/,
+  regex: /^rxjs\/observable\/[a-z]/,
   root: ['Rx', 'Observable']
 }, {
   // rxjs/observable/MulticastObservable
-  regex: /^observable\/[A-Z]/,
+  regex: /^rxjs\/observable\/[A-Z]/,
   root: 'Rx'
 }, {
   // rxjs/scheduler/asap
-  regex: /^scheduler\/[a-z]/,
+  regex: /^rxjs\/scheduler\/[a-z]/,
   root: ['Rx', 'Scheduler']
 }, {
   // rxjs/scheduler/VirtualTimeScheduler
-  regex: /^scheduler\/[A-Z]/,
+  regex: /^rxjs\/scheduler\/[A-Z]/,
   root: 'Rx'
 }];
 
-function rootForPath(path) {
-  for (var i = 0, l = rootPatterns.length; i < l; i++) {
-    if (path.match(rootPatterns[i].regex)) {
-      return rootPatterns[i].root;
-    }
+function rootForRequest(path) {
+  const match = rootPatterns.find(pattern => path.match(pattern.regex));
+
+  if (match) {
+    return match.root;
   }
 
   return 'Rx';
 }
 
-function createExternals() {
-  return files.reduce(function (externs, file) {
-    var path = file.replace(rxjsPath, '').replace(/^\/(.*)\.[^.]+$/, '$1');
-    var fullPath = 'rxjs/' + path;
+function rxjsExternalsFactory() {
 
-    externs[fullPath] = {
-      root: rootForPath(path),
-      commonjs2: fullPath,
-      commonjs: fullPath,
-      amd: fullPath
-    };
+  return function rxjsExternals(context, request, callback) {
 
-    return externs;
-  }, {});
+    if (request.startsWith('rxjs/')) {
+      return callback(null, {
+        root: rootForRequest(request),
+        commonjs: request,
+        commonjs2: request,
+        amd: request
+      });
+    }
+
+    callback();
+
+  };
+
 }
 
-module.exports = createExternals;
+module.exports = rxjsExternalsFactory;
