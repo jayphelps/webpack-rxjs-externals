@@ -1,11 +1,11 @@
 const rootPatterns = [{
-  // rxjs/operator/map
-  regex: /^rxjs\/operator\//,
-  root: ['Rx', 'Observable', 'prototype']
-}, {
   // rxjs/operators/map
   regex: /^rxjs\/operators\//,
   root: ['Rx', 'operators']
+}, {
+  // rxjs/operator/map
+  regex: /^rxjs\/operator\//,
+  root: ['Rx', 'Observable', 'prototype']
 }, {
   // rxjs/observable/interval
   regex: /^rxjs\/observable\/[a-z]/,
