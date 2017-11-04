@@ -3,6 +3,10 @@ const rootPatterns = [{
   regex: /^rxjs\/operators\//,
   root: ['Rx', 'operators']
 }, {
+  // rxjs/operators
+  regex: /^rxjs\/operators/,
+  root: ['Rx', 'operators']
+}, {
   // rxjs/operator/map
   regex: /^rxjs\/operator\//,
   root: ['Rx', 'Observable', 'prototype']
