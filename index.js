@@ -38,17 +38,30 @@ function rootForRequest(path) {
   return 'Rx';
 }
 
-function rxjsExternalsFactory() {
+function rxjsExternalsFactory(opts) {
+
+  opts = opts || {};
+  const scriptTag = opts.scriptTag || false;
 
   return function rxjsExternals(context, request, callback) {
 
     if (request.startsWith('rxjs/')) {
-      return callback(null, {
+
+      let result = {
         root: rootForRequest(request),
         commonjs: request,
         commonjs2: request,
         amd: request
-      });
+      };
+
+      if (scriptTag) {
+        result = result.root;
+        if (Array.isArray(result)) {
+          result = result.join('.');
+        }
+      }
+
+      return callback(null, result);
     }
 
     callback();

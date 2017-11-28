@@ -20,3 +20,6 @@ export default {
   ]
 };
 ```
+
+### Including rxjs via a script tag
+If including rxjs as a script tag on the page and not using this to package a library then you will need to set the script tag option: `webpackRxjsExternals({scriptTag: true})`
