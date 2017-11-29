@@ -26,7 +26,10 @@ describe('webpack-rxjs-externals', () => {
               libraryTarget: 'umd',
               library: 'rxjsTest'
             },
-            externals: webpackRxjsExternals()
+            externals: webpackRxjsExternals(),
+            resolve: {
+              alias: webpackRxjsExternals.alias()
+            }
           };
 
           const expectedOutput = fs.readFileSync(path.join(__dirname, fixturesDir, fixture, 'expected', 'index.js')).toString();
