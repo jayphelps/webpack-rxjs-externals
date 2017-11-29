@@ -20,3 +20,22 @@ export default {
   ]
 };
 ```
+
+If the `let` operator is used, an alias needs to be configured, as the exported name (`letProto`) differs from the prototype name (`let`):
+
+```js
+import webpackRxjsExternals from 'webpack-rxjs-externals';
+
+export default {
+  externals: [
+    webpackRxjsExternals(),
+    // other externals here
+  ],
+  resolve: {
+    alias: {
+      ...webpackRxjsExternals.alias(),
+      // other aliases here
+    }
+  }
+};
+```

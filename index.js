@@ -42,7 +42,7 @@ function rxjsExternalsFactory() {
 
   return function rxjsExternals(context, request, callback) {
 
-    if (request.startsWith('rxjs/')) {
+    if (request.startsWith('rxjs/') && !/rxjs\/operator\/let/.test(request)) {
       return callback(null, {
         root: rootForRequest(request),
         commonjs: request,
@@ -56,5 +56,14 @@ function rxjsExternalsFactory() {
   };
 
 }
+
+rxjsExternalsFactory.alias = function () {
+
+  const path = require('path');
+
+  return {
+    'rxjs/operator/let$': path.resolve(__dirname, 'let')
+  };
+};
 
 module.exports = rxjsExternalsFactory;
