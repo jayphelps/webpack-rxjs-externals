@@ -1,1 +1,1 @@
-import map from 'rxjs/operator/map';
+import { map }  from 'rxjs/operators';

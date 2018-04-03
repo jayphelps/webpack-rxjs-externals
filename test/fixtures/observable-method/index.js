@@ -1,1 +1,0 @@
-import interval from 'rxjs/observable/interval';
