@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("rxjs/observable/ArrayLikeObservable"));
+		module.exports = factory(require("rxjs"));
 	else if(typeof define === 'function' && define.amd)
-		define(["rxjs/observable/ArrayLikeObservable"], factory);
+		define(["rxjs"], factory);
 	else if(typeof exports === 'object')
-		exports["rxjsTest"] = factory(require("rxjs/observable/ArrayLikeObservable"));
+		exports["rxjsTest"] = factory(require("rxjs"));
 	else
-		root["rxjsTest"] = factory(root["Rx"]);
+		root["rxjsTest"] = factory(root["rxjs"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -88,8 +88,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_observable_ArrayLikeObservable__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_observable_ArrayLikeObservable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_observable_ArrayLikeObservable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs__);
+
 
 
 /***/ })

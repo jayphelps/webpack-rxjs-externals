@@ -1,12 +1,12 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("rxjs/operator/map"));
+		module.exports = factory(require("rxjs/operators"));
 	else if(typeof define === 'function' && define.amd)
-		define(["rxjs/operator/map"], factory);
+		define(["rxjs/operators"], factory);
 	else if(typeof exports === 'object')
-		exports["rxjsTest"] = factory(require("rxjs/operator/map"));
+		exports["rxjsTest"] = factory(require("rxjs/operators"));
 	else
-		root["rxjsTest"] = factory(root["Rx"]["Observable"]["prototype"]);
+		root["rxjsTest"] = factory(root["rxjs"]["operators"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -88,8 +88,9 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_0__;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_operator_map__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_operators__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rxjs_operators___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_rxjs_operators__);
+
 
 
 /***/ })

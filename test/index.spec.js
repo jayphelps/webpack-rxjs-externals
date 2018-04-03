@@ -6,7 +6,8 @@ const expect = require('chai').expect;
 const webpackRxjsExternals = require('../index');
 
 const fixturesDir = 'fixtures';
-const fixtures = fs.readdirSync(path.join(__dirname, fixturesDir));
+const fixtures = fs.readdirSync(path.join(__dirname, fixturesDir))
+  .filter(item => !(/(^|\/)\.[^\/\.]/g).test(item)); // ignore hidden files
 
 describe('webpack-rxjs-externals', () => {
 
@@ -26,10 +27,7 @@ describe('webpack-rxjs-externals', () => {
               libraryTarget: 'umd',
               library: 'rxjsTest'
             },
-            externals: webpackRxjsExternals(),
-            resolve: {
-              alias: webpackRxjsExternals.alias()
-            }
+            externals: webpackRxjsExternals()
           };
 
           const expectedOutput = fs.readFileSync(path.join(__dirname, fixturesDir, fixture, 'expected', 'index.js')).toString();

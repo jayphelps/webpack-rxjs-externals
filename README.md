@@ -4,6 +4,7 @@ Utility to generate all the ["externals"](https://webpack.js.org/configuration/e
 
 Since RxJS is ever-changing, this removes the need to maintain a list, instead generating it on the fly.
 
+**Latest version only works with v6+ import paths, NOT the older v5 deep paths. Use v1.1.0 version for rxjs v5**
 **Requires webpack v2**
 
 #### webpack.config.js
@@ -19,21 +20,15 @@ export default {
 };
 ```
 
-If the `let` operator is used, an alias needs to be configured, as the exported name (`letProto`) differs from the prototype name (`let`):
+#### Example of v6 imports this supports
 
 ```js
-import webpackRxjsExternals from 'webpack-rxjs-externals';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-export default {
-  externals: [
-    webpackRxjsExternals(),
-    // other externals here
-  ],
-  resolve: {
-    alias: {
-      ...webpackRxjsExternals.alias(),
-      // other aliases here
-    }
-  }
-};
+of(1, 2, 3).pipe(
+  map(d => d * 10)
+);
 ```
+
+Remember, this version does NOT support the older deep imports `rxjs/operator/map` etc.
