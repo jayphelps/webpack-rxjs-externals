@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const MemoryFileSystem = require('memory-fs');
+const { createFsFromVolume, Volume } = require('memfs');
 const expect = require('chai').expect;
 const webpackRxjsExternals = require('../index');
 
@@ -15,15 +15,17 @@ describe('webpack-rxjs-externals', () => {
       return new Promise((resolve, reject) => {
         const config = {
           entry: path.join(__dirname, fixturesDir, fixture, 'index.js'),
+          mode: 'development',
+          devtool: false,
           output: {
             filename: 'index.js',
-            path: __dirname,
+            path: '/',
             libraryTarget: 'umd',
             library: 'rxjsTest'
           },
           externals: [
             webpackRxjsExternals(),
-            (context, request, callback) => {
+            ({context, request}, callback) => {
               const externs = ['whatever-rxjs', 'rxjs-whatever'];
               const name = externs.find(item => item === request);
 
@@ -44,13 +46,14 @@ describe('webpack-rxjs-externals', () => {
         const expectedOutput = fs.readFileSync(path.join(__dirname, fixturesDir, fixture, 'expected', 'index.js')).toString();
 
         const compiler = webpack(config);
-        compiler.outputFileSystem = new MemoryFileSystem();
+        const memoryFileSystem = createFsFromVolume(new Volume());
+        compiler.outputFileSystem = memoryFileSystem;
 
         compiler.run((err, stats) => {
           if (err) {
             reject(err);
           }
-          const actualOutput = stats.compilation.assets['index.js'].source();
+          const actualOutput = memoryFileSystem.readFileSync('/index.js').toString();
           expect(actualOutput).to.equal(expectedOutput);
           resolve();
         });
