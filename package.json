@@ -19,7 +19,7 @@
   "license": "MIT",
   "devDependencies": {
     "chai": "^3.5.0",
-    "memory-fs": "^0.4.1",
+    "memfs": "^3.3.0",
     "mocha": "^3.2.0",
     "webpack": "^2.2.1"
   },

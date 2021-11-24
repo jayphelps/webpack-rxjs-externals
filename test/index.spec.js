@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
-const MemoryFileSystem = require('memory-fs');
+const { createFsFromVolume, Volume } = require('memfs');
 const expect = require('chai').expect;
 const webpackRxjsExternals = require('../index');
 
@@ -17,7 +17,7 @@ describe('webpack-rxjs-externals', () => {
           entry: path.join(__dirname, fixturesDir, fixture, 'index.js'),
           output: {
             filename: 'index.js',
-            path: __dirname,
+            path: '/',
             libraryTarget: 'umd',
             library: 'rxjsTest'
           },
@@ -44,13 +44,18 @@ describe('webpack-rxjs-externals', () => {
         const expectedOutput = fs.readFileSync(path.join(__dirname, fixturesDir, fixture, 'expected', 'index.js')).toString();
 
         const compiler = webpack(config);
-        compiler.outputFileSystem = new MemoryFileSystem();
+        const memoryFileSystem = createFsFromVolume(new Volume());
+        compiler.outputFileSystem = memoryFileSystem;
+
+        // remove after migration to webpack@5
+        // https://github.com/webpack/webpack.js.org/blob/6fadc4b1cc79b6a11e4bcb3cd6bf966c0ebc2308/src/content/contribute/writing-a-loader.mdx#testing
+        compiler.outputFileSystem.join = path.join.bind(path);
 
         compiler.run((err, stats) => {
           if (err) {
             reject(err);
           }
-          const actualOutput = stats.compilation.assets['index.js'].source();
+          const actualOutput = memoryFileSystem.readFileSync('/index.js').toString();
           expect(actualOutput).to.equal(expectedOutput);
           resolve();
         });
