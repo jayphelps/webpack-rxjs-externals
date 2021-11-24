@@ -15,6 +15,8 @@ describe('webpack-rxjs-externals', () => {
       return new Promise((resolve, reject) => {
         const config = {
           entry: path.join(__dirname, fixturesDir, fixture, 'index.js'),
+          mode: 'development',
+          devtool: false,
           output: {
             filename: 'index.js',
             path: '/',
@@ -23,7 +25,7 @@ describe('webpack-rxjs-externals', () => {
           },
           externals: [
             webpackRxjsExternals(),
-            (context, request, callback) => {
+            ({context, request}, callback) => {
               const externs = ['whatever-rxjs', 'rxjs-whatever'];
               const name = externs.find(item => item === request);
 
@@ -46,10 +48,6 @@ describe('webpack-rxjs-externals', () => {
         const compiler = webpack(config);
         const memoryFileSystem = createFsFromVolume(new Volume());
         compiler.outputFileSystem = memoryFileSystem;
-
-        // remove after migration to webpack@5
-        // https://github.com/webpack/webpack.js.org/blob/6fadc4b1cc79b6a11e4bcb3cd6bf966c0ebc2308/src/content/contribute/writing-a-loader.mdx#testing
-        compiler.outputFileSystem.join = path.join.bind(path);
 
         compiler.run((err, stats) => {
           if (err) {
